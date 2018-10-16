@@ -12,6 +12,20 @@
     @include('includes.header')
 
     <div class="container-fluid">
+        @hasSection('breadcrumbs')
+            <div class="row breadcrumbs">
+                <div class="col">
+                    @yield('breadcrumbs')
+                </div>
+            </div>
+        @endif
+        @hasSection('pageHeader')
+            <div class="row page-header">
+                <div class="col">
+                    @yield('pageHeader')
+                </div>
+            </div>
+        @endif
         <div class="row">
             @yield('content')
         </div>

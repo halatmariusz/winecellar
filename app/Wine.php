@@ -6,8 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Wine extends Model
 {
-    // protected $table = 'products';
-    // protected $fillable = [
-    //     'title', 'content', 'thumb', 'for_sale', 'price', 'stock_number', 'shipping_info', 'country'
-    // ];
+    protected $table = 'wines';
+    protected $fillable = [
+        'user_id', 'title', 'description', 'volume', 'power', 'init_fruit', 'init_water', 'init_sugar', 'init_yeast', 'init_nutrient', 'yeast_name', 'nutrient_name', 'added_on', 'bottled'
+    ];
 }

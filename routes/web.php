@@ -13,7 +13,9 @@
 
 Route::get('/', function () {
     return view('welcome');
-});
+})->name('home');
+
+Route::get('/wines/list', ['as' => 'wines.list', 'uses' => 'WineController@showList']);
 
 Route::get('/calculator/sugar', ['as' => 'calculator.sugarForm', 'uses' => 'CalculatorController@sugarForm']);
 Route::post('/calculator/sugar', ['as' => 'calculator.sugarFormPost', 'uses' => 'CalculatorController@sugarFormPost']);

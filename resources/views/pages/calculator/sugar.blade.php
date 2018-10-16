@@ -16,6 +16,14 @@
 
 @section('bodyClass', '')
 
+@section('breadcrumbs')
+    {{ Breadcrumbs::render('sugar') }}
+@endsection
+
+@section('pageHeader')
+    <h1>The Title.</h1>
+@endsection
+
 @section('content')
     <div class="col col-6">
         {{ Form::open(array('route' => ['calculator.sugarFormPost'], 'method' => 'post')) }}

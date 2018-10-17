@@ -28,6 +28,7 @@ class CreateWinesTable extends Migration
             $table->text('yeast_name')->nullable();
             $table->text('nutrient_name')->nullable();
             $table->tinyInteger('bottled')->default(0);
+            $table->tinyInteger('is_drain')->default(0);
             $table->timestamp('added_on');
             $table->timestamps();
         });

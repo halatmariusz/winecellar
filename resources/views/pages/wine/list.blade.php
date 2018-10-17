@@ -34,12 +34,13 @@
                     <td>Nastawiono</td>
                     <td>Objętość (l)</td>
                     <td>Moc (%)</td>
-                    <td>OWoce (kg)</td>
+                    <td>Owoce (kg)</td>
                     <td>Woda (l)</td>
                     <td>Cukier (kg)</td>
                     <td>Drożdże (g|ml)</td>
                     <td>Pożywka (g)</td>
                     <td>Wiek (dni)</td>
+                    <td>Opcje</td>
                 </tr>
             </thead>
             <tbody></tbody>
@@ -56,6 +57,13 @@
                     <td>{{ $item->init_yeast }}</td>
                     <td>{{ $item->init_nutrient }}</td>
                     <td>{{ \Carbon\Carbon::now()->diffInDays(\Carbon\Carbon::parse($item->added_on)) }}</td>
+                    <td>
+                        @if ($item->is_drain == 0)
+                            <a href="{!! route('wines.drain', ['wine_id' => $item->id]) !!}" class="btn">Odcedź</a>
+                        @endif
+                        <a href="{!! route('wines.sugar', ['wine_id' => $item->id]) !!}" class="btn">Dodaj cukru</a>
+                        <a href="{!! route('wines.water', ['wine_id' => $item->id]) !!}" class="btn">Dodaj wody</a>
+                    </td>
                 </tr>
             @endforeach
             </tbody>

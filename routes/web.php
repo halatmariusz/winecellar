@@ -16,6 +16,8 @@ Route::get('/', function () {
 })->name('home');
 
 Route::get('/wines/list', ['as' => 'wines.list', 'uses' => 'WineController@showList']);
+Route::get('/wines/new', ['as' => 'wines.new', 'uses' => 'WineController@newWine']);
+Route::post('/wines/new', ['as' => 'wines.newPost', 'uses' => 'WineController@newWinePost']);
 Route::get('/wines/drain/{wine_id}', ['as' => 'wines.drain', 'uses' => 'WineController@setDrain']);
 Route::post('/wines/drain/{wine_id}', ['as' => 'wines.drainPost', 'uses' => 'WineController@setDrainPost']);
 Route::get('/wines/sugar/{wine_id}', ['as' => 'wines.sugar', 'uses' => 'WineController@setSugar']);

@@ -8,6 +8,6 @@ class Wine extends Model
 {
     protected $table = 'wines';
     protected $fillable = [
-        'user_id', 'title', 'description', 'volume', 'power', 'init_fruit', 'init_water', 'init_sugar', 'init_yeast', 'init_nutrient', 'yeast_name', 'nutrient_name', 'added_on', 'bottled'
+        'user_id', 'title', 'description', 'volume', 'power', 'init_fruit', 'init_water', 'init_sugar', 'init_yeast', 'init_nutrient', 'init_citric_acid', 'yeast_name', 'nutrient_name', 'added_on', 'bottled'
     ];
 }

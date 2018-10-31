@@ -44,25 +44,25 @@
                 </tr>
             </thead>
             <tbody></tbody>
-            @foreach ($wines as $key => $item)
+            @foreach ($wines as $key => $wine)
                 <tr>
                     <td>{{ $loop->iteration }}</td>
-                    <td>{{ $item->title }}</td>
-                    <td>{{ $item->added_on }}</td>
-                    <td>{{ $item->volume }}</td>
-                    <td>{{ $item->power }}</td>
-                    <td>{{ $item->init_fruit }}</td>
-                    <td>{{ $item->init_water }}</td>
-                    <td>{{ $item->init_sugar }}</td>
-                    <td>{{ $item->init_yeast }}</td>
-                    <td>{{ $item->init_nutrient }}</td>
-                    <td>{{ \Carbon\Carbon::now()->diffInDays(\Carbon\Carbon::parse($item->added_on)) }}</td>
+                    <td>{{ $wine->title }}</td>
+                    <td>{{ $wine->added_on }}</td>
+                    <td>{{ $wine->volume }}</td>
+                    <td>{{ $wine->power }}</td>
+                    <td>{{ $wine->init_fruit }}</td>
+                    <td>{{ $wine->init_water }}</td>
+                    <td>{{ $wine->init_sugar }}</td>
+                    <td>{{ $wine->init_yeast }}</td>
+                    <td>{{ $wine->init_nutrient }}</td>
+                    <td>{{ \Carbon\Carbon::now()->diffInDays(\Carbon\Carbon::parse($wine->added_on)) }}</td>
                     <td>
-                        @if ($item->is_drain == 0)
-                            <a href="{!! route('wines.drain', ['wine_id' => $item->id]) !!}" class="btn">Odcedź</a>
+                        @if ($wine->is_drain == 0)
+                            <a href="{!! route('wines.drain', ['wine_id' => $wine->id]) !!}" class="btn">Odcedź</a>
                         @endif
-                        <a href="{!! route('wines.sugar', ['wine_id' => $item->id]) !!}" class="btn">Dodaj cukru</a>
-                        <a href="{!! route('wines.water', ['wine_id' => $item->id]) !!}" class="btn">Dodaj wody</a>
+                        <a href="{!! route('wines.sugar', ['wine_id' => $wine->id]) !!}" class="btn">Dodaj cukru</a>
+                        <a href="{!! route('wines.water', ['wine_id' => $wine->id]) !!}" class="btn">Dodaj wody</a>
                     </td>
                 </tr>
             @endforeach

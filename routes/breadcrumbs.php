@@ -8,13 +8,19 @@ Breadcrumbs::for('home', function ($trail) {
 // Calculator -> Sugar
 Breadcrumbs::for('sugar', function ($trail) {
     $trail->parent('home');
-    $trail->push('Calculator', '');
-    $trail->push('Sugar', route('calculator.sugarForm'));
+    $trail->push('Kalkulatory', '');
+    $trail->push('Cukier', route('calculator.sugarForm'));
 });
 
 // Wines -> List
 Breadcrumbs::for('wines-list', function ($trail) {
     $trail->parent('home');
-    $trail->push('Wines', '');
-    $trail->push('List', route('wines.list'));
+    $trail->push('Produkcja', '');
+    $trail->push('Nastawy', route('wines.list'));
+});
+
+// Wines -> New
+Breadcrumbs::for('wines-new', function ($trail) {
+    $trail->parent('wines-list');
+    $trail->push('Nowy nastaw', route('wines.new'));
 });

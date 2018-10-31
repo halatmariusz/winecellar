@@ -25,6 +25,7 @@ class CreateWinesTable extends Migration
             $table->decimal('init_sugar', 8, 2);
             $table->decimal('init_yeast', 8, 2);
             $table->decimal('init_nutrient', 8, 2);
+            $table->decimal('init_citric_acid', 8, 2);
             $table->text('yeast_name')->nullable();
             $table->text('nutrient_name')->nullable();
             $table->tinyInteger('bottled')->default(0);

@@ -21,6 +21,7 @@
         "vue": "^2.5.7"
     },
     "dependencies": {
-        "bootstrap-material-design": "^4.1.1"
+        "bootstrap-material-design": "^4.1.1",
+        "fullcalendar": "^3.9.0"
     }
 }

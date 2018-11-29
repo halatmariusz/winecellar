@@ -8,6 +8,8 @@
 @import '~bootstrap/scss/bootstrap';
 // Material Design
 @import '~bootstrap-material-design/scss/bootstrap-material-design';
+// Fullcalendar
+@import '~fullcalendar/dist/fullcalendar.min.css';
 
 .navbar-laravel {
     background-color: #fff;
@@ -15,5 +17,10 @@
 }
 
 .page-header {
-    color: #fff;
+    color: $main-color;
+    margin: 14px 0;
+}
+
+.breadcrumb {
+    background-color: $white;
 }

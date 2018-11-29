@@ -13,7 +13,7 @@ class WineController extends Controller
 {
     public function showList()
     {
-        $wines = Wine::where('bottled', '=', false)->orderBy('added_on', 'asc')->get();
+        $wines = Wine::where('bottled', '=', false)->orderBy('id', 'ASC')->get();
 
         return view('pages.wine.list', compact('wines'));
     }
@@ -45,77 +45,41 @@ class WineController extends Controller
         return Redirect::route('wines.list')->with('success', 'Wino pomyślnie dodane do winnicy!');
     }
 
-    public function setDrain($wine_id)
+    public function addWineData($wine_id)
     {
-        return view('pages.wine.drain', compact('wine_id'));
+        $wine = Wine::select('title')->findOrFail($wine_id);
+
+        return view('pages.wine.add-data', compact('wine_id', 'wine'));
     }
 
-    public function setDrainPost(Request $request, $wine_id)
+    public function addWineDataPost(Request $request, $wine_id)
     {
-        $data_key = 'drain';
-
         $data = new WineData();
         $data->user_id = 1;
         $data->wine_id = $wine_id;
-        $data->data_key = $data_key;
-        $data->data_volume = $request->volume;
-        $data->added_on = $request->added_on;
+        $data->data_key = $request->input('data_key');
+        $data->data_volume = $request->input('volume');
+        $data->added_on = $request->input('added_on');
         $data->save();
 
-        $wine = Wine::find($wine_id);
-        $wine->is_drain = '1';
-        $wine->save();
+        if ($request->input('data_key') == 'drain') {
+            $wine = Wine::find($wine_id);
+            $wine->is_drain = '1';
+            $wine->timestamps = false;
+            $wine->save();
+        }
 
         return Redirect::route('wines.list')->with('success', 'Zapisano!');
     }
 
-    public function setSediment()
+    public function showWine($wine_id)
     {
+        $wine = Wine::findOrFail($wine_id);
+        $actions = $wine->getLatestData;
+        $data = $actions->groupBy('data_key')->map(function ($row) {
+            return $row->sum('data_volume');
+        });
 
-    }
-
-    public function setSugar($wine_id)
-    {
-        return view('pages.wine.sugar', compact('wine_id'));
-    }
-
-    public function setSugarPost(Request $request, $wine_id)
-    {
-        $data_key = 'sugar';
-
-        $data = new WineData();
-        $data->user_id = 1;
-        $data->wine_id = $wine_id;
-        $data->data_key = $data_key;
-        $data->data_volume = $request->volume;
-        $data->added_on = $request->added_on;
-        $data->save();
-
-        return Redirect::route('wines.list')->with('success', 'Zapisano!');
-    }
-
-    public function setSugarWater($wine_id)
-    {
-
-    }
-
-    public function setWater($wine_id)
-    {
-        return view('pages.wine.water', compact('wine_id'));
-    }
-
-    public function setWaterPost($wine_id)
-    {
-        $data_key = 'water';
-
-        $data = new WineData();
-        $data->user_id = 1;
-        $data->wine_id = $wine_id;
-        $data->data_key = $data_key;
-        $data->data_volume = $request->volume;
-        $data->added_on = $request->added_on;
-        $data->save();
-
-        return Redirect::route('wines.list')->with('success', 'Zapisano!');
+        return view('pages.wine.show', compact('wine', 'actions', 'data'));
     }
 }

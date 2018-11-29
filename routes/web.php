@@ -15,15 +15,26 @@ Route::get('/', function () {
     return view('welcome');
 })->name('home');
 
-Route::get('/wines/list', ['as' => 'wines.list', 'uses' => 'WineController@showList']);
-Route::get('/wines/new', ['as' => 'wines.new', 'uses' => 'WineController@newWine']);
-Route::post('/wines/new', ['as' => 'wines.newPost', 'uses' => 'WineController@newWinePost']);
-Route::get('/wines/drain/{wine_id}', ['as' => 'wines.drain', 'uses' => 'WineController@setDrain']);
-Route::post('/wines/drain/{wine_id}', ['as' => 'wines.drainPost', 'uses' => 'WineController@setDrainPost']);
-Route::get('/wines/sugar/{wine_id}', ['as' => 'wines.sugar', 'uses' => 'WineController@setSugar']);
-Route::post('/wines/sugar/{wine_id}', ['as' => 'wines.sugarPost', 'uses' => 'WineController@setSugarPost']);
-Route::get('/wines/water/{wine_id}', ['as' => 'wines.water', 'uses' => 'WineController@setWater']);
-Route::post('/wines/water/{wine_id}', ['as' => 'wines.waterPost', 'uses' => 'WineController@setWaterPost']);
+Auth::routes();
 
-Route::get('/calculator/sugar', ['as' => 'calculator.sugarForm', 'uses' => 'CalculatorController@sugarForm']);
-Route::post('/calculator/sugar', ['as' => 'calculator.sugarFormPost', 'uses' => 'CalculatorController@sugarFormPost']);
+Route::group(['middleware' => ['web', 'auth']], function () {
+    Route::get('/wines', function () {
+        return redirect()->route('wines.list');
+    });
+    Route::get('/wines/list', ['as' => 'wines.list', 'uses' => 'WineController@showList']);
+    Route::get('/wines/new', ['as' => 'wines.new', 'uses' => 'WineController@newWine']);
+    Route::post('/wines/new', ['as' => 'wines.newPost', 'uses' => 'WineController@newWinePost']);
+    Route::get('/wines/add-data/{wine_id}', ['as' => 'wines.add-data', 'uses' => 'WineController@addWineData']);
+    Route::post('/wines/add-data/{wine_id}', ['as' => 'wines.add-dataPost', 'uses' => 'WineController@addWineDataPost']);
+    Route::get('/wines/show/{wine_id}', ['as' => 'wines.show', 'uses' => 'WineController@showWine']);
+
+    Route::get('/calendar', ['as' => 'calendar', 'uses' => 'CalendarController@showCalendar']);
+
+    Route::get('/calculator/sugar', ['as' => 'calculator.sugarForm', 'uses' => 'CalculatorController@sugarForm']);
+    Route::post('/calculator/sugar', ['as' => 'calculator.sugarFormPost', 'uses' => 'CalculatorController@sugarFormPost']);
+
+    Route::get('/logout', function () {
+        Auth::logout();
+        return redirect()->to('/');
+    });
+});

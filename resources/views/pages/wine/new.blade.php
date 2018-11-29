@@ -82,6 +82,7 @@
                 </div>
             </div>
             <button type="submit" class="btn btn-primary">Zapisz</button>
+            <a href="{{ route('wines.list') }}" class="btn btn-primary">Cofnij</a>
         {{ Form::close() }}
     </div>
 @endsection

@@ -13,16 +13,18 @@
 
     <div class="container-fluid">
         @hasSection('breadcrumbs')
-            <div class="row breadcrumbs">
-                <div class="col">
+            <div class="row">
+                <div class="col-12 breadcrumbs">
                     @yield('breadcrumbs')
                 </div>
             </div>
         @endif
         @hasSection('pageHeader')
-            <div class="row page-header">
-                <div class="col">
-                    @yield('pageHeader')
+            <div class="row col col-12">
+                <div class="page-header">
+                    <div class="">
+                        @yield('pageHeader')
+                    </div>
                 </div>
             </div>
         @endif
@@ -36,6 +38,9 @@
     </footer>
 
     <script type="text/javascript" src="{{ asset('js/app.js') }}"></script>
+    @hasSection('scripts')
+        @yield('scripts')
+    @endif
 
 </body>
 </html>

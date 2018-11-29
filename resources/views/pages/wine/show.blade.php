@@ -1,6 +1,6 @@
 @extends('layouts.default')
 
-@section('pageTitle', 'Lista nastawów')
+@section('pageTitle', 'Wines list')
 @section('metaDescription', '')
 @section('metaKeywords', '')
 
@@ -21,17 +21,15 @@
 @endsection
 
 @section('pageHeader')
-    <h1>Lista nastawów <a href="{{ route('wines.new') }}" class="btn btn-primary">Nowy nastaw</a></h1>
+    <h1>{{ $wine->title }}</h1>
 @endsection
 
 @section('content')
-    <div class="col-12">
+    <div class="col-8">
         <div class="table-responsive card">
             <table class="table table-striped table-hover">
                 <thead>
                     <tr>
-                        <td>Lp.</td>
-                        <td>Nazwa wina</td>
                         <td>Nastawiono</td>
                         <td>Objętość (l)</td>
                         <td>Moc (%)</td>
@@ -41,14 +39,10 @@
                         <td>Drożdże (g|ml)</td>
                         <td>Pożywka (g)</td>
                         <td>Wiek (dni)</td>
-                        <td>Opcje</td>
                     </tr>
                 </thead>
-                <tbody></tbody>
-                @foreach ($wines as $key => $wine)
+                <tbody>
                     <tr>
-                        <td>{{ $loop->iteration }}</td>
-                        <td>{{ $wine->title }}</td>
                         <td>{{ $wine->added_on }}</td>
                         <td>{{ $wine->volume }}</td>
                         <td>{{ $wine->power }}</td>
@@ -58,14 +52,34 @@
                         <td>{{ $wine->init_yeast }}</td>
                         <td>{{ $wine->init_nutrient }}</td>
                         <td>{{ \Carbon\Carbon::now()->diffInDays(\Carbon\Carbon::parse($wine->added_on)) }}</td>
-                        <td>
-                            <a href="{!! route('wines.show', ['wine_id' => $wine->id]) !!}" class="btn btn-primary">Zobacz</a>
-                            <a href="{!! route('wines.add-data', ['wine_id' => $wine->id]) !!}" class="btn btn-primary">Dodaj</a>
-                        </td>
                     </tr>
-                @endforeach
+                    <tr>
+                        <td>{{ $wine->added_on }}</td>
+                        <td>{{ $wine->volume }}</td>
+                        <td>{{ $wine->power }}</td>
+                        <td>{{ $wine->init_fruit }}</td>
+                        <td>{{ $wine->init_water + $data['water'] }}</td>
+                        <td>{{ $wine->init_sugar + $data['sugar'] }}</td>
+                        <td>{{ $wine->init_yeast }}</td>
+                        <td>{{ $wine->init_nutrient }}</td>
+                        <td>{{ \Carbon\Carbon::now()->diffInDays(\Carbon\Carbon::parse($wine->added_on)) }}</td>
+                    </tr>
                 </tbody>
             </table>
+        </div>
+    </div>
+    <div class="col-4">
+        <div class="card">
+            <div class="card-header">
+                Ostatnie prace przy nastawie
+            </div>
+            <div class="list-group list-group-flush">
+                @foreach ($actions as $item)
+                    <li class="list-group-item d-flex justify-content-between align-items-center">{{ Helpers::wineDataTrans($item->data_key) }} -> {{ $item->added_on }}
+                        <span class="badge badge-primary badge-pill">{{ $item->data_volume }}</span>
+                    </li>
+                @endforeach
+            </div>
         </div>
     </div>
 @endsection

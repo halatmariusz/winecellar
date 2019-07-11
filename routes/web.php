@@ -11,6 +11,10 @@
 |
 */
 
+Route::get('/home', function() {
+    return redirect()->route('wines.list');
+});
+
 Route::get('/', function () {
     return view('welcome');
 })->name('home');

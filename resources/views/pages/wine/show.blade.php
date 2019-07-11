@@ -58,8 +58,8 @@
                         <td>{{ $wine->volume }}</td>
                         <td>{{ $wine->power }}</td>
                         <td>{{ $wine->init_fruit }}</td>
-                        <td>{{ $wine->init_water + $data['water'] }}</td>
-                        <td>{{ $wine->init_sugar + $data['sugar'] }}</td>
+                        <td>{{ $wine->init_water + (isset($data['water']) ? $data['water'] : 0) }}</td>
+                        <td>{{ $wine->init_sugar + (isset($data['sugar']) ? $data['sugar'] : 0) }}</td>
                         <td>{{ $wine->init_yeast }}</td>
                         <td>{{ $wine->init_nutrient }}</td>
                         <td>{{ \Carbon\Carbon::now()->diffInDays(\Carbon\Carbon::parse($wine->added_on)) }}</td>

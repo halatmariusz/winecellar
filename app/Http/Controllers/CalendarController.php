@@ -19,6 +19,7 @@ class CalendarController extends Controller
     ];
 
     private $actions = [
+        'add' => 'Nastawiono',
         'acid' => 'Dodano kwasek cytrynowy',
         'drain' => 'Odcedzono owoce',
         'sediment' => 'Zlano znad osadu',
@@ -28,6 +29,11 @@ class CalendarController extends Controller
 
     public function showCalendar()
     {
+        $wines = Wine::select('id', 'title', 'added_on')
+                        ->whereUserId(Auth::user()->id)
+                        ->orderBy('added_on')
+                        ->get();
+
         $data = WineData::select('wine_id', 'data_key', 'added_on')
                         ->whereUserId(Auth::user()->id)
                         ->orderBy('added_on')
@@ -39,6 +45,22 @@ class CalendarController extends Controller
 
         $events = [];
 
+        // create wines
+        foreach ($wines as $key => $value) {
+            $events[] = Calendar::event(
+                $this->actions['add'] . ' / ' . $value->title,
+                true,
+                $value->added_on,
+                $value->added_on,
+                $value->id,
+                [
+                    'color' => $this->colors[$value->id],
+                    'url' => '/wines/show/' . $value->id
+                ]
+            );
+        }
+
+        // wines data
         foreach ($grouped as $key => $value) {
             foreach ($value as $key2 => $item) {
                 $events[] = Calendar::event(

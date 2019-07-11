@@ -22,6 +22,7 @@
     },
     "dependencies": {
         "bootstrap-material-design": "^4.1.1",
-        "fullcalendar": "^3.9.0"
+        "fullcalendar": "^3.9.0",
+        "moment": "^2.24.0"
     }
 }
